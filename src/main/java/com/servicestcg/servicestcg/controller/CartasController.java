@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.servicestcg.servicestcg.entity.Carta;
+import com.servicestcg.servicestcg.entity.Cliente;
+import com.servicestcg.servicestcg.entity.Endereco;
 import com.servicestcg.servicestcg.entity.Natureza;
 import com.servicestcg.servicestcg.entity.Raridade;
-import com.servicestcg.servicestcg.mapper.RaridadeMapper;
 import com.servicestcg.servicestcg.repository.CartasRepository;
+import com.servicestcg.servicestcg.repository.ClienteRepository;
 import com.servicestcg.servicestcg.repository.EdicaoRepository;
+import com.servicestcg.servicestcg.repository.EnderecoRepository;
 import com.servicestcg.servicestcg.repository.NaturezaRepository;
 import com.servicestcg.servicestcg.repository.RaridadeRepository;
 import com.servicestcg.to.ComboTO;
@@ -35,6 +38,12 @@ public class CartasController {
 	@Autowired
 	private EdicaoRepository edicaoRepository;
 	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
 	private static final String template = "Hello, %s!";
 	private final AtomicLong counter = new AtomicLong();
 	
@@ -45,14 +54,10 @@ public class CartasController {
 		return new Carta(counter.incrementAndGet(), String.format(template, nome));
 	}
 	
-	@GetMapping("/utils/lista/raridade")
-	public List<Raridade> getAllRaridades(@RequestParam(value = "jogo", defaultValue = "1") String jogo){
-		return raridadeRepository.findByJogo(Long.parseLong(jogo));
-	}
-	
-	@GetMapping("/utils/lista/natureza")
-	public List<Natureza> getAllNaturezas(@RequestParam(value = "jogo", defaultValue = "1") String jogo){
-		return naturezaRepository.findByJogo(Long.parseLong(jogo));
+	@GetMapping("/cliente/consultar")
+	public Cliente getCliente(@RequestParam(value = "id", defaultValue = "1") String id){
+		Cliente cliente = clienteRepository.findById(Long.parseLong(id));;
+		return cliente;
 	}
 	
 	@GetMapping("/utils/lista/combos")
@@ -63,4 +68,23 @@ public class CartasController {
 		comboTO.setEdicao(edicaoRepository.findByJogo(Long.parseLong(jogo)));
 		return comboTO;
 	}
+	
+//	@GetMapping("/utils/lista/raridade")
+//	public List<Raridade> getAllRaridades(@RequestParam(value = "jogo", defaultValue = "1") String jogo){
+//		return raridadeRepository.findByJogo(Long.parseLong(jogo));
+//	}
+	
+//	@GetMapping("/utils/lista/natureza")
+//	public List<Natureza> getAllNaturezas(@RequestParam(value = "jogo", defaultValue = "1") String jogo){
+//		return naturezaRepository.findByJogo(Long.parseLong(jogo));
+//	}
+	
+	
+	
+//	@GetMapping("/cliente/endereco")
+//	public Endereco getEndereco(@RequestParam(value = "id", defaultValue = "1") String id){
+//		return enderecoRepository.findById(Long.parseLong(id));
+//	}
+	
+	
 }
