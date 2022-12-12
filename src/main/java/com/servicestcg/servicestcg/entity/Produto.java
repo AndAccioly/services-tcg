@@ -2,18 +2,17 @@ package com.servicestcg.servicestcg.entity;
 
 import java.sql.Date;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity(name = "T001CARTA")
-public class Carta {
+@Entity(name = "T001PRODUTO")
+public class Produto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private final long carta_id;
+	private final long produto_id;
 	
 	private String nome;
 	private Double valor;
@@ -24,13 +23,9 @@ public class Carta {
 	private Edicao edicao;
 	private TipoProduto tipo_produto;
 	private String descricao;
-
-	private Natureza natureza;
-	private Raridade raridade;
-	private Qualidade qualidade;
 	
-	public Carta() {
-		this.carta_id = 0;
+	public Produto() {
+		this.produto_id = 0;
 	}
 
 	public String getNome() {
@@ -105,34 +100,9 @@ public class Carta {
 		this.descricao = descricao;
 	}
 
-	public long getCarta_id() {
-		return carta_id;
+	public long getProduto_id() {
+		return produto_id;
 	}
 
-	public Natureza getNatureza() {
-		return natureza;
-	}
-
-	public void setNatureza(Natureza natureza) {
-		this.natureza = natureza;
-	}
-
-	public Raridade getRaridade() {
-		return raridade;
-	}
-
-	public void setRaridade(Raridade raridade) {
-		this.raridade = raridade;
-	}
-
-	public Qualidade getQualidade() {
-		return qualidade;
-	}
-
-	public void setQualidade(Qualidade qualidade) {
-		this.qualidade = qualidade;
-	}
-	
-	
 
 }

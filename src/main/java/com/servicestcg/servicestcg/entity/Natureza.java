@@ -10,13 +10,13 @@ public class Natureza {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private final long id;
+	private final long natureza_id;
 	
 	private String nome;
 	private long jogo;
 	
 	public Natureza() {
-		this.id = 0;
+		this.natureza_id = 0;
 	}
 
 	public String getNome() {
@@ -35,8 +35,8 @@ public class Natureza {
 		this.jogo = jogo;
 	}
 
-	public long getId() {
-		return id;
+	public long getNatureza_id() {
+		return natureza_id;
 	}
 	
 	

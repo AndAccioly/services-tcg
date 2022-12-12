@@ -1,6 +1,5 @@
 package com.servicestcg.servicestcg.controller;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.servicestcg.servicestcg.entity.Carta;
 import com.servicestcg.servicestcg.entity.Cliente;
-import com.servicestcg.servicestcg.entity.Endereco;
-import com.servicestcg.servicestcg.entity.Natureza;
-import com.servicestcg.servicestcg.entity.Raridade;
 import com.servicestcg.servicestcg.repository.CartasRepository;
 import com.servicestcg.servicestcg.repository.ClienteRepository;
 import com.servicestcg.servicestcg.repository.EdicaoRepository;

@@ -1,16 +1,13 @@
 package com.servicestcg.servicestcg.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity(name = "T001EDICAO")
 public class Edicao {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private final long id;
+	private final long edicao_id;
 	
 	private final String nome;
 	
@@ -19,18 +16,18 @@ public class Edicao {
 	private long jogo;
 	
 	public Edicao() {
-		this.id = 0;
+		this.edicao_id = 0;
 		this.nome = "";
 		
 	}
 
-	public Edicao(long id, String nome) {
-		this.id = id;
+	public Edicao(long edicao_id, String nome) {
+		this.edicao_id = edicao_id;
 		this.nome = nome;
 	}
 
-	public long getId() {
-		return id;
+	public long getEdicao_id() {
+		return edicao_id;
 	}
 
 	public String getNome() {

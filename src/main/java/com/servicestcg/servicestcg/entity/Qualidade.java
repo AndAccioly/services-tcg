@@ -3,18 +3,18 @@ package com.servicestcg.servicestcg.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-@Entity(name = "T001RARIDADE")
-public class Raridade {
 
+@Entity(name = "T001QUALIDADE")
+public class Qualidade {
+	
 	@Id
-	private final long raridade_id;
+	private final long qualidade_id;
 	
 	private String nome;
 	private String sigla;
-	private long jogo;
 	
-	public Raridade() {
-		this.raridade_id = 0;
+	public Qualidade() {
+		this.qualidade_id = 0;
 	}
 
 	public String getNome() {
@@ -33,19 +33,8 @@ public class Raridade {
 		this.sigla = sigla;
 	}
 
-	public long getJogo() {
-		return jogo;
+	public long getQualidade_id() {
+		return qualidade_id;
 	}
-
-	public void setJogo(long jogo) {
-		this.jogo = jogo;
-	}
-
-	public long getRaridade_id() {
-		return raridade_id;
-	}
-	
-	
-	
 	
 }
