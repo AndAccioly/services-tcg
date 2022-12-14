@@ -1,7 +1,5 @@
 package com.servicestcg.servicestcg.controller;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +11,6 @@ import com.servicestcg.servicestcg.entity.Cliente;
 import com.servicestcg.servicestcg.repository.CartasRepository;
 import com.servicestcg.servicestcg.repository.ClienteRepository;
 import com.servicestcg.servicestcg.repository.EdicaoRepository;
-import com.servicestcg.servicestcg.repository.EnderecoRepository;
 import com.servicestcg.servicestcg.repository.NaturezaRepository;
 import com.servicestcg.servicestcg.repository.RaridadeRepository;
 import com.servicestcg.to.ComboTO;
@@ -37,17 +34,11 @@ public class CartasController {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
-	@Autowired
-	private EnderecoRepository enderecoRepository;
-	
-	private static final String template = "Hello, %s!";
-	private final AtomicLong counter = new AtomicLong();
-	
-	@GetMapping("/teste")
+	@GetMapping("/carta/consultar")
 	public Carta teste(@RequestParam(value = "name", defaultValue = "World") String nome) {
 		Carta carta = cartasRepository.findById(1);
 		System.out.println(carta.getNome());
-		return new Carta(counter.incrementAndGet(), String.format(template, nome));
+		return carta;
 	}
 	
 	@GetMapping("/cliente/consultar")

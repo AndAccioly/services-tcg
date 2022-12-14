@@ -1,7 +1,12 @@
 package com.servicestcg.servicestcg.entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 
 @Entity(name = "T001QUALIDADE")
@@ -12,6 +17,9 @@ public class Qualidade {
 	
 	private String nome;
 	private String sigla;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "qualidade", fetch = FetchType.LAZY)
+	private List<Carta> cartas;
 	
 	public Qualidade() {
 		this.qualidade_id = 0;
@@ -35,6 +43,14 @@ public class Qualidade {
 
 	public long getQualidade_id() {
 		return qualidade_id;
+	}
+
+	public List<Carta> getCartas() {
+		return cartas;
+	}
+
+	public void setCartas(List<Carta> cartas) {
+		this.cartas = cartas;
 	}
 	
 }

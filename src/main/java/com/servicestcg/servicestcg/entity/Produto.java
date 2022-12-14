@@ -3,9 +3,12 @@ package com.servicestcg.servicestcg.entity;
 import java.sql.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity(name = "T001PRODUTO")
 public class Produto {
@@ -18,11 +21,20 @@ public class Produto {
 	private Double valor;
 	private Date data_inicio;
 	private Date data_fim;
-	private Idioma idioma;
 	private Integer estoque;
-	private Edicao edicao;
-	private TipoProduto tipo_produto;
 	private String descricao;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "edicao", nullable=false)
+	private Edicao edicao;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idioma", nullable=false)
+	private Idioma idioma;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "tipo_produto", nullable=false)
+	private TipoProduto tipoProduto;
 	
 	public Produto() {
 		this.produto_id = 0;
@@ -84,14 +96,6 @@ public class Produto {
 		this.edicao = edicao;
 	}
 
-	public TipoProduto getTipo_produto() {
-		return tipo_produto;
-	}
-
-	public void setTipo_produto(TipoProduto tipo_produto) {
-		this.tipo_produto = tipo_produto;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}
@@ -102,6 +106,14 @@ public class Produto {
 
 	public long getProduto_id() {
 		return produto_id;
+	}
+
+	public TipoProduto getTipoProduto() {
+		return tipoProduto;
+	}
+
+	public void setTipoProduto(TipoProduto tipoProduto) {
+		this.tipoProduto = tipoProduto;
 	}
 
 

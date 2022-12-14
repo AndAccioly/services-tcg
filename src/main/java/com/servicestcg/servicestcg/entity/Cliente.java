@@ -29,7 +29,23 @@ public class Cliente {
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
 	private List<Endereco> enderecos;
+	
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
+	private List<Pedido> pedidos;
+	
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
+	private List<Cupom> cupons;
+	
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
+	private List<Cartao> cartoes;
 	 
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
+	private List<Listas> listas;
+	
 	private Integer endereco_principal;
 	
 	private String telefone;
@@ -95,6 +111,38 @@ public class Cliente {
 
 	public long getCliente_id() {
 		return cliente_id;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
+	public List<Cupom> getCupons() {
+		return cupons;
+	}
+
+	public void setCupons(List<Cupom> cupons) {
+		this.cupons = cupons;
+	}
+
+	public List<Cartao> getCartoes() {
+		return cartoes;
+	}
+
+	public void setCartoes(List<Cartao> cartoes) {
+		this.cartoes = cartoes;
+	}
+
+	public List<Listas> getListas() {
+		return listas;
+	}
+
+	public void setListas(List<Listas> listas) {
+		this.listas = listas;
 	}
 	
 }

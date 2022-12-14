@@ -2,11 +2,13 @@ package com.servicestcg.servicestcg.entity;
 
 import java.sql.Date;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity(name = "T001CARTA")
 public class Carta {
@@ -19,14 +21,27 @@ public class Carta {
 	private Double valor;
 	private Date data_inicio;
 	private Date data_fim;
-	private Idioma idioma;
-	private Integer estoque;
-	private Edicao edicao;
-	private TipoProduto tipo_produto;
 	private String descricao;
-
+	private Integer estoque;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "edicao", nullable=false)
+	private Edicao edicao;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idioma", nullable=false)
+	private Idioma idioma;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "natureza", nullable=false)
 	private Natureza natureza;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "raridade", nullable=false)
 	private Raridade raridade;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "qualidade", nullable=false)
 	private Qualidade qualidade;
 	
 	public Carta() {
@@ -88,15 +103,7 @@ public class Carta {
 	public void setEdicao(Edicao edicao) {
 		this.edicao = edicao;
 	}
-
-	public TipoProduto getTipo_produto() {
-		return tipo_produto;
-	}
-
-	public void setTipo_produto(TipoProduto tipo_produto) {
-		this.tipo_produto = tipo_produto;
-	}
-
+	
 	public String getDescricao() {
 		return descricao;
 	}

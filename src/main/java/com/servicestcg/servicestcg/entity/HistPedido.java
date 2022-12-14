@@ -3,9 +3,12 @@ package com.servicestcg.servicestcg.entity;
 import java.sql.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity(name = "T001HIST_PEDIDO")
 public class HistPedido {
@@ -14,9 +17,12 @@ public class HistPedido {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private final long hist_pedido_id;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "pedido", nullable=false)
 	private Pedido pedido;
 	
-	private Status status;
+	private Integer status;
+	
 	private Date data_alteracao;
 	
 	public HistPedido() {
@@ -31,11 +37,11 @@ public class HistPedido {
 		this.pedido = pedido;
 	}
 
-	public Status getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

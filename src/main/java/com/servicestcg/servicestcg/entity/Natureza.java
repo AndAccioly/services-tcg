@@ -1,9 +1,14 @@
 package com.servicestcg.servicestcg.entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity(name = "T001NATUREZA")
 public class Natureza {
@@ -14,6 +19,9 @@ public class Natureza {
 	
 	private String nome;
 	private long jogo;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "natureza", fetch = FetchType.LAZY)
+	private List<Carta> cartas;
 	
 	public Natureza() {
 		this.natureza_id = 0;
@@ -37,6 +45,14 @@ public class Natureza {
 
 	public long getNatureza_id() {
 		return natureza_id;
+	}
+
+	public List<Carta> getCartas() {
+		return cartas;
+	}
+
+	public void setCartas(List<Carta> cartas) {
+		this.cartas = cartas;
 	}
 	
 	
