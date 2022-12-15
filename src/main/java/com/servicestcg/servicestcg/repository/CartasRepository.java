@@ -7,7 +7,6 @@ import com.servicestcg.servicestcg.entity.Carta;
 
 @Repository
 public interface CartasRepository extends JpaRepository<Carta, Long>{
-	
 	Carta findById(long id);
 
 }

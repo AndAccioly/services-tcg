@@ -2,6 +2,8 @@ package com.servicestcg.servicestcg.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -15,7 +17,7 @@ public class Status {
 	private final long status_id;	
 	private String nome;
 	
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "status", fetch = FetchType.LAZY)
 	private List<Pedido> pedidos;
 	

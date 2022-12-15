@@ -24,15 +24,15 @@ public class Produto {
 	private Integer estoque;
 	private String descricao;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "edicao", nullable=false)
 	private Edicao edicao;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idioma", nullable=false)
 	private Idioma idioma;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tipo_produto", nullable=false)
 	private TipoProduto tipoProduto;
 	

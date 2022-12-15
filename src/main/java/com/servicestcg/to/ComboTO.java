@@ -3,7 +3,9 @@ package com.servicestcg.to;
 import java.util.List;
 
 import com.servicestcg.servicestcg.entity.Edicao;
+import com.servicestcg.servicestcg.entity.Idioma;
 import com.servicestcg.servicestcg.entity.Natureza;
+import com.servicestcg.servicestcg.entity.Qualidade;
 import com.servicestcg.servicestcg.entity.Raridade;
 
 public class ComboTO {
@@ -11,6 +13,8 @@ public class ComboTO {
 	private List<Natureza> natureza;
 	private List<Raridade> raridade;
 	private List<Edicao> edicao;
+	private List<Qualidade> qualidade;
+	private List<Idioma> idioma;
 	
 	public List<Natureza> getNatureza() {
 		return natureza;
@@ -35,6 +39,20 @@ public class ComboTO {
 	public void setEdicao(List<Edicao> edicao) {
 		this.edicao = edicao;
 	}
-	
-	
+
+	public List<Qualidade> getQualidade() {
+		return qualidade;
+	}
+
+	public void setQualidade(List<Qualidade> qualidade) {
+		this.qualidade = qualidade;
+	}
+
+	public List<Idioma> getIdioma() {
+		return idioma;
+	}
+
+	public void setIdioma(List<Idioma> idioma) {
+		this.idioma = idioma;
+	}
 }

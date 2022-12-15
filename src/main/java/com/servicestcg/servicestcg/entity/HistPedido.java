@@ -17,7 +17,7 @@ public class HistPedido {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private final long hist_pedido_id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "pedido", nullable=false)
 	private Pedido pedido;
 	

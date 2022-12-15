@@ -2,6 +2,8 @@ package com.servicestcg.servicestcg.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -15,9 +17,11 @@ public class Idioma {
 	private final long idioma_id;
 	private String nome;
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idioma", fetch = FetchType.LAZY)
 	private List<Carta> cartas;
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idioma", fetch = FetchType.LAZY)
 	private List<Produto> produtos;
 

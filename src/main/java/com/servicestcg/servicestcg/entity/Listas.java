@@ -3,6 +3,7 @@ package com.servicestcg.servicestcg.entity;
 import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -29,18 +30,18 @@ public class Listas {
 	@JsonBackReference
 	Cliente cliente;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tipo_lista", nullable=false)
 	private TipoLista tipoLista;
 	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pedido_id")
+    @JoinColumn(name = "pedido")
 	private Pedido pedido;
 	
 	public Listas() {
 		this.listas_id = 0;
 	}
-
 
 	public String getConteudo() {
 		return conteudo;
@@ -53,7 +54,6 @@ public class Listas {
 	public Date getData_criacao() {
 		return data_criacao;
 	}
-
 	public void setData_criacao(Date data_criacao) {
 		this.data_criacao = data_criacao;
 	}
@@ -76,6 +76,14 @@ public class Listas {
 
 	public void setTipoLista(TipoLista tipoLista) {
 		this.tipoLista = tipoLista;
+	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 
 }

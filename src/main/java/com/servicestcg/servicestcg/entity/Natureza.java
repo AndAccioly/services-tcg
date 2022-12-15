@@ -2,6 +2,8 @@ package com.servicestcg.servicestcg.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,6 +22,7 @@ public class Natureza {
 	private String nome;
 	private long jogo;
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "natureza", fetch = FetchType.LAZY)
 	private List<Carta> cartas;
 	

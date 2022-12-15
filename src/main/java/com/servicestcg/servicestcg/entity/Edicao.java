@@ -2,6 +2,11 @@ package com.servicestcg.servicestcg.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,23 +19,26 @@ import jakarta.persistence.OneToMany;
 public class Edicao {
 
 	@Id
+	@JsonProperty("id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private final long edicao_id;
-	
+
 	private final String nome;
 	private String ano;
 	private long jogo;
-	
+
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "edicao", fetch = FetchType.LAZY)
 	private List<Carta> cartas;
-	
+
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "edicao", fetch = FetchType.LAZY)
 	private List<Produto> produtos;
-	
+
 	public Edicao() {
 		this.edicao_id = 0;
 		this.nome = "";
-		
+
 	}
 
 	public Edicao(long edicao_id, String nome) {
@@ -77,7 +85,5 @@ public class Edicao {
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
 	}
-	
-	
-	
+
 }

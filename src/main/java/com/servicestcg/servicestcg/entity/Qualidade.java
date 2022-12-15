@@ -2,6 +2,8 @@ package com.servicestcg.servicestcg.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,6 +20,7 @@ public class Qualidade {
 	private String nome;
 	private String sigla;
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "qualidade", fetch = FetchType.LAZY)
 	private List<Carta> cartas;
 	
