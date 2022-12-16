@@ -19,7 +19,6 @@ import jakarta.persistence.OneToMany;
 public class Edicao {
 
 	@Id
-	@JsonProperty("id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private final long edicao_id;
 
