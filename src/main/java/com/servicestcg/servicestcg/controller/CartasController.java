@@ -9,13 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.servicestcg.servicestcg.entity.Carta;
 import com.servicestcg.servicestcg.entity.Cliente;
 import com.servicestcg.servicestcg.entity.Listas;
+import com.servicestcg.servicestcg.entity.Pedido;
 import com.servicestcg.servicestcg.entity.Produto;
 import com.servicestcg.servicestcg.repository.CartasRepository;
 import com.servicestcg.servicestcg.repository.ClienteRepository;
 import com.servicestcg.servicestcg.repository.EdicaoRepository;
 import com.servicestcg.servicestcg.repository.IdiomaRepository;
+import com.servicestcg.servicestcg.repository.JogoRepository;
 import com.servicestcg.servicestcg.repository.ListasRepository;
 import com.servicestcg.servicestcg.repository.NaturezaRepository;
+import com.servicestcg.servicestcg.repository.PedidoRepository;
 import com.servicestcg.servicestcg.repository.ProdutoRepository;
 import com.servicestcg.servicestcg.repository.QualidadeRepository;
 import com.servicestcg.servicestcg.repository.RaridadeRepository;
@@ -27,6 +30,9 @@ public class CartasController {
 	
 	@Autowired
 	private CartasRepository cartasRepository;
+	
+	@Autowired
+	private JogoRepository jogosRepository;
 	
 	@Autowired
 	private RaridadeRepository raridadeRepository;
@@ -52,6 +58,9 @@ public class CartasController {
 	@Autowired
 	private ListasRepository listasRepository;
 	
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	
 	@GetMapping("/carta/consultar")
 	public Carta teste(@RequestParam(value = "name", defaultValue = "World") String nome) {
 		Carta carta = cartasRepository.findById(1);
@@ -67,6 +76,12 @@ public class CartasController {
 	@GetMapping("/produto/consultar")
 	public Produto getProduto(@RequestParam(value = "id", defaultValue = "1") String id){
 		Produto produto = produtoRepository.findById(Long.parseLong(id));;
+		return produto;
+	}
+	
+	@GetMapping("/pedido/consultar")
+	public Pedido getPedido(@RequestParam(value = "id", defaultValue = "1") String id){
+		Pedido produto = pedidoRepository.findById(Long.parseLong(id));;
 		return produto;
 	}
 	
@@ -87,6 +102,7 @@ public class CartasController {
 		comboTO.setEdicao(edicaoRepository.findByJogo(Long.parseLong(jogo)));
 		comboTO.setQualidade(qualidadeRepository.findAll());
 		comboTO.setIdioma(idiomaRepository.findAll());
+		comboTO.setJogo(jogosRepository.findAll());
 		return comboTO;
 	}
 }

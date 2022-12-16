@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.servicestcg.servicestcg.entity.Edicao;
 import com.servicestcg.servicestcg.entity.Idioma;
+import com.servicestcg.servicestcg.entity.Jogo;
 import com.servicestcg.servicestcg.entity.Natureza;
 import com.servicestcg.servicestcg.entity.Qualidade;
 import com.servicestcg.servicestcg.entity.Raridade;
@@ -15,6 +16,7 @@ public class ComboTO {
 	private List<Edicao> edicao;
 	private List<Qualidade> qualidade;
 	private List<Idioma> idioma;
+	private List<Jogo> jogo;
 	
 	public List<Natureza> getNatureza() {
 		return natureza;
@@ -55,4 +57,14 @@ public class ComboTO {
 	public void setIdioma(List<Idioma> idioma) {
 		this.idioma = idioma;
 	}
+
+	public List<Jogo> getJogo() {
+		return jogo;
+	}
+
+	public void setJogo(List<Jogo> jogo) {
+		this.jogo = jogo;
+	}
+	
+	
 }
