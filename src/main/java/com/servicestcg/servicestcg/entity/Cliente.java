@@ -21,7 +21,7 @@ public class Cliente {
 	private final long cliente_id;
 	
 	@Column(nullable=false)
-	private String user_name;
+	private String username;
 	
 	@Column(nullable=false)
 	private String email;
@@ -61,12 +61,12 @@ public class Cliente {
 		this.cliente_id = cliente_id;
 	}
 
-	public String getUser_name() {
-		return user_name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getEmail() {
