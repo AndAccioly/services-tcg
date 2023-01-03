@@ -19,10 +19,10 @@ import jakarta.persistence.OneToMany;
 public class Edicao {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private final long edicao_id;
 
-	private final String nome;
+	private String nome;
 	private String ano;
 	private long jogo;
 
@@ -51,6 +51,10 @@ public class Edicao {
 
 	public String getNome() {
 		return nome;
+	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getAno() {
@@ -84,5 +88,7 @@ public class Edicao {
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
 	}
+	
+	
 
 }

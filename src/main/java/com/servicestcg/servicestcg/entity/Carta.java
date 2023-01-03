@@ -2,8 +2,6 @@ package com.servicestcg.servicestcg.entity;
 
 import java.sql.Date;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 public class Carta {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private final long carta_id;
 	
 	private String nome;
@@ -25,6 +23,8 @@ public class Carta {
 	private Date data_fim;
 	private String descricao;
 	private Integer estoque;
+	
+	private byte[] imagem;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "edicao", nullable=false)
@@ -140,6 +140,14 @@ public class Carta {
 
 	public void setQualidade(Qualidade qualidade) {
 		this.qualidade = qualidade;
+	}
+
+	public byte[] getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
 	}
 	
 	

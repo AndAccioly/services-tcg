@@ -9,5 +9,6 @@ import com.servicestcg.servicestcg.entity.Raridade;
 
 @Repository
 public interface RaridadeRepository extends JpaRepository<Raridade, Long>{
-	List<Raridade> findByJogo(long id);
+	List<Raridade> findByJogo(long jogo);
+	Raridade findById(long id);
 }

@@ -19,7 +19,7 @@ import jakarta.persistence.OneToOne;
 public class Listas {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private final long listas_id;
 	
 	private String conteudo;

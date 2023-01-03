@@ -8,5 +8,6 @@ import com.servicestcg.servicestcg.entity.Edicao;
 
 public interface EdicaoRepository extends JpaRepository<Edicao, Long>{
 
-	List<Edicao> findByJogo(long id);
+	List<Edicao> findByJogo(long jogo);
+	Edicao findById(long id);
 }
