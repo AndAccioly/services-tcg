@@ -3,6 +3,8 @@ package com.servicestcg.servicestcg.mapper;
 import java.nio.charset.StandardCharsets;
 
 import com.servicestcg.servicestcg.entity.Carta;
+import com.servicestcg.servicestcg.repository.EdicaoRepository;
+import com.servicestcg.to.CartaCompletaTO;
 import com.servicestcg.to.CartaTO;
 
 public class CartaMapper {
@@ -39,5 +41,18 @@ public class CartaMapper {
 		cartaTO.setNatureza(carta.getNatureza().getNatureza_id());
 		
 		return cartaTO;
+	}
+
+	public CartaCompletaTO cartaToCartaCompleta(CartaTO cartaTO, Carta carta) {
+		CartaCompletaTO cartaCompletaTO = new CartaCompletaTO();
+		cartaCompletaTO.setCartaTO(cartaTO);
+		cartaCompletaTO.setEdicaoDescricao(carta.getEdicao().getNome());
+		cartaCompletaTO.setQualidadeDescricao(carta.getQualidade().getNome());
+		cartaCompletaTO.setNaturezaDescricao(carta.getNatureza().getNome());
+		cartaCompletaTO.setAno(carta.getEdicao().getAno());
+		cartaCompletaTO.setIdiomaDescricao(carta.getIdioma().getNome());
+		cartaCompletaTO.setRaridadeDescricao(carta.getRaridade().getNome());
+		
+		return cartaCompletaTO;
 	}
 }

@@ -1,14 +1,17 @@
 package com.servicestcg.to;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.List;
 
-public class ListaTO {
+public class ListasTO {
 
 	private long listas_id;
-	private String conteudo;
 	private Date data_criacao;
 	private long tipoLista;
 	private long cliente;
+	private List<CartaTO> cartasTO;
+	
+	public ListasTO() {}
 	
 	public long getListas_id() {
 		return listas_id;
@@ -16,14 +19,6 @@ public class ListaTO {
 	
 	public void setListas_id(long listas_id) {
 		this.listas_id = listas_id;
-	}
-	
-	public String getConteudo() {
-		return conteudo;
-	}
-	
-	public void setConteudo(String conteudo) {
-		this.conteudo = conteudo;
 	}
 	
 	public Date getData_criacao() {
@@ -48,6 +43,14 @@ public class ListaTO {
 	
 	public void setCliente(long cliente) {
 		this.cliente = cliente;
+	}
+
+	public List<CartaTO> getCartasTO() {
+		return cartasTO;
+	}
+
+	public void setCartasTO(List<CartaTO> cartasTO) {
+		this.cartasTO = cartasTO;
 	}
 	
 	

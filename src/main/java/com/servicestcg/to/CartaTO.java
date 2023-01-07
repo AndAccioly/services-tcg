@@ -13,6 +13,7 @@ public class CartaTO {
 	private long natureza;
 	private long raridade;
 	private long qualidade;
+	private long nivel;
 	private Double valor;
 	private Integer estoque;
 	private Date data_inicio;

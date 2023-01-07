@@ -1,6 +1,7 @@
 package com.servicestcg.servicestcg.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.servicestcg.servicestcg.entity.Listas;
 import com.servicestcg.servicestcg.entity.Pedido;
 import com.servicestcg.servicestcg.entity.Produto;
 import com.servicestcg.servicestcg.mapper.CartaMapper;
+import com.servicestcg.servicestcg.mapper.ListasMapper;
 import com.servicestcg.servicestcg.repository.CartasRepository;
 import com.servicestcg.servicestcg.repository.ClienteRepository;
 import com.servicestcg.servicestcg.repository.EdicaoRepository;
@@ -31,10 +33,11 @@ import com.servicestcg.servicestcg.repository.QualidadeRepository;
 import com.servicestcg.servicestcg.repository.RaridadeRepository;
 import com.servicestcg.servicestcg.repository.TipoListaRepository;
 import com.servicestcg.to.CartaClienteTO;
+import com.servicestcg.to.CartaCompletaTO;
 import com.servicestcg.to.CartaTO;
 import com.servicestcg.to.ComboTO;
 import com.servicestcg.to.EdicaoTO;
-import com.servicestcg.to.ListaTO;
+import com.servicestcg.to.ListasTO;
 import com.servicestcg.to.ResponseTO;
 
 @RestController
@@ -77,9 +80,11 @@ public class CartasController {
 	@Autowired
 	private PedidoRepository pedidoRepository;
 	
+	CartaMapper cartaMapper = new CartaMapper();
+	ListasMapper listasMapper = new ListasMapper();
+	
 	@PostMapping("/carta/salvar")
 	public ResponseTO salvarCarta(@RequestBody CartaTO cartaTO) {
-		CartaMapper cartaMapper = new CartaMapper();
 		Carta carta = cartaMapper.toParaEntity(cartaTO);
 		carta.setEdicao(edicaoRepository.findById(cartaTO.getEdicao()));
 		carta.setRaridade(raridadeRepository.findById(cartaTO.getRaridade()));
@@ -100,51 +105,84 @@ public class CartasController {
 		edicaoRepository.save(edicao);
 		return responseTO;
 	}
-	//TODO
-	@PostMapping("/listas/remover/desejo")
+
+	@PostMapping("/listas/remover")
 	public ResponseTO removerCartaListaDesejo(@RequestBody CartaClienteTO cartaClienteTO) {
 		ResponseTO responseTO = new ResponseTO();
-		System.out.println("CARTA CLIENTE REMOVER");
-		Listas lista = new Listas();
-		System.out.println(cartaClienteTO.getCartaId());
-		System.out.println(cartaClienteTO.getClienteId());
-		//listasRepository.save(lista);
+		List<Listas> listas = listasRepository.findByCliente(clienteRepository.findById(cartaClienteTO.getClienteId()));
+		
+		for(Listas lista : listas) {
+			System.out.println("Aqui");
+			System.out.println(cartaClienteTO.getTipoListaId());
+			System.out.println(lista.getTipoLista().getTipo_lista_id());
+			if(lista.getTipoLista().getTipo_lista_id() == cartaClienteTO.getTipoListaId()) {
+				String[] splitted = lista.getConteudo().split(";");
+				String aux = "";
+				for (String split : splitted) {
+					if(!split.equals(cartaClienteTO.getCartaId() + "") ){
+						aux += split + ";";
+					}
+				}
+				lista.setConteudo(aux);
+				listasRepository.save(lista);
+			}
+		}
 		return responseTO;
 	}
 	
-	@PostMapping("/listas/adicionar/desejo")
+	@PostMapping("/listas/adicionar")
 	public ResponseTO adicionarCartaListaDesejo(@RequestBody CartaClienteTO cartaClienteTO) {
 		ResponseTO responseTO = new ResponseTO();
-		Listas lista = new Listas();
-		System.out.println("CARTA CLIENTE ADICIONAR");
-		System.out.println(cartaClienteTO.getCartaId());
-		System.out.println(cartaClienteTO.getClienteId());
-		//listasRepository.save(lista);
+		boolean naoExiste = true;
+		List<Listas> listas = listasRepository.findByCliente(clienteRepository.findById(cartaClienteTO.getClienteId()));
+		
+		for(Listas lista : listas) {
+			if(lista.getTipoLista().getTipo_lista_id() == cartaClienteTO.getTipoListaId()) {
+				naoExiste = false;
+				lista.setConteudo(lista.getConteudo() + ';' + cartaClienteTO.getCartaId());
+				listasRepository.save(lista);
+			}
+		}
+		
+		if(naoExiste) {
+			Listas lista = new Listas();
+			lista.setConteudo("" + cartaClienteTO.getCartaId());
+			lista.setCliente(clienteRepository.findById(cartaClienteTO.getClienteId()));
+			lista.setData_criacao(new Date());
+			lista.setTipoLista(tipoListaRepository.findById(cartaClienteTO.getTipoListaId()));
+			listasRepository.save(lista);
+		}
 		return responseTO;
 	}
 	
-	@PostMapping("/listas/salvar")
-	public ResponseTO salvarLista(@RequestBody ListaTO listaTO) {
-		ResponseTO responseTO = new ResponseTO();
-		Listas lista = new Listas();
-		lista.setData_criacao(listaTO.getData_criacao());
-		lista.setTipoLista(tipoListaRepository.findById(listaTO.getTipoLista()) );
-		lista.setCliente(clienteRepository.findById(listaTO.getCliente()) );
-		lista.setConteudo(listaTO.getConteudo());
-		System.out.println("CONTEUDO");
-		System.out.println(lista.getConteudo());
-		//listasRepository.save(lista);
-		return responseTO;
+
+	@GetMapping("/carta/consultar/edicao")
+	public List<CartaCompletaTO> getListasEdicao(@RequestParam(value = "edicao", defaultValue = "1") String edicao){
+		System.out.println("Consultando lista por edicao");
+		List<CartaCompletaTO> cartasCompletasTO= new ArrayList<CartaCompletaTO>();
+		List<Carta> cartas = cartasRepository.findByEdicao(edicaoRepository.findById(Long.parseLong(edicao))); 
+		for(Carta carta : cartas) {
+			cartasCompletasTO.add(cartaMapper.cartaToCartaCompleta(cartaMapper.entityParaTo(carta), carta));
+		}
+		return cartasCompletasTO;
 	}
 	
 	@GetMapping("/listas/consultar")
-	public List<Listas> getListas(@RequestParam(value = "clienteId", defaultValue = "1") String clienteId, 
+	public List<ListasTO> getListas(@RequestParam(value = "clienteId", defaultValue = "1") String clienteId, 
 			@RequestParam(value = "tipoListaId", defaultValue = "1") String tipoListaId){
 		List<Listas> listas = listasRepository.findByCliente(clienteRepository.findById(Long.parseLong(clienteId)));
-		List<Listas> listasRetorno = new ArrayList<Listas>();
+		List<ListasTO> listasRetorno = new ArrayList<ListasTO>();
+		System.out.println("Consultando lista");
 		for(Listas lista : listas) {
+			System.out.println(lista.getConteudo() + " " + Long.parseLong(tipoListaId) + " " + lista.getTipoLista().getTipo_lista_id());
 			if(lista.getTipoLista().getTipo_lista_id() == Long.parseLong(tipoListaId)) {
-				listasRetorno.add(lista);
+				System.out.println("Lista encontrada");	
+				String[] splitted = lista.getConteudo().split(";");
+				List<Carta> cartas = new ArrayList<Carta>();
+				for(String split : splitted) {
+					cartas.add(cartasRepository.findById(Long.parseLong(split)));
+				}
+				listasRetorno.add(listasMapper.mapear(lista, cartas));
 			}
 		}
 		return listasRetorno;
